@@ -1,0 +1,1 @@
+deleteAllItem(&evenList, 0)? printf("LIST DELETED\n"):printf("NOT DELETED\n");
