@@ -8,7 +8,7 @@ int main()
     List empList;
     
     initList(&empList);
-    // Not sure why it errors
+    // Not sure why it has warning but it works so ¯\_(ツ)_/¯
     
     addEmployee(&empList, newEmployee(1001, "Maria Dela Cruz", "female", 40.0f));
     addEmployee(&empList, newEmployee(1020, "Sabrina Yap", "female", 35.0f));
