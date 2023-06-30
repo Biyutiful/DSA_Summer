@@ -26,16 +26,19 @@ int main()
     String menuChoice[4] = {"Stack","Queue",
                             "isFull","Viszualize"};
                             
-    String menuStack[6]  = {"Push","Pop",
+    String menuStack[7]  = {"Initialize",
+                            "Push","Pop",
                             "isEmpty","Peak/Top"
                             "Display","Viszualize"};
                             
-    String menuQueue[6]  = {"Enqueue","Dequeue",
+    String menuQueue[7]  = {"Initialize",
+                            "Enqueue","Dequeue",
                             "isEmpty","Front",
                             "Display","Viszualize"};
     
     VirtualSpace vh = newVirtualSpace();
-    
+    Product p;
+    Date d;
     do {
         system("cls");
         printf("MENU\n");
@@ -57,28 +60,41 @@ int main()
                     
                     switch(choice) {
                         case 1:
-                            printf("| PUSH |\n");
-                            printf("Enter a number: ");
-                            scanf("%d", &value);
-                            
+                            printf("| INITIALIZE |\n");
+                            StackList s =  initStackR();
                             break;
                         case 2:
-                            printf("| POP |\n");
-                            
+                            printf("| PUSH |\n");
+                            printf("Enter a product(enter after every prompt): ");
+                            printf("Product ID: ");
+                            scanf("%d", &p.prodID);
+                            printf("Product Name: ");
+                            fgets(p.prodName, sizeof(p.prodName), stdin);
+                            printf("Product Qty: ");
+                            scanf("%d", &p.prodQty);
+                            printf("Product Price: ");
+                            scanf("%f", &p.prodPrice);
+                            printf("Product Exp(DD MM YY): ");
+                            scanf("%d %d %d", &p.prodExp.date, &p.prodExp.month, &p.prodExp.year);
+                            push(&vh, &s, newProduct(p.prodID, p.prodName, p.prodQty, p.prodPrice, p.prodExp));
                             break;
                         case 3:
+                            printf("| POP |\n");
+                            pop(&vh, &s);
+                            break;
+                        case 4:
                             printf("| ISEMPTY |\n");
                             // isEmpty(myQueue)? printf("   > is EMPTY\n") : printf("   > is NOT EMPTY\n");
                             break;
-                        case 4:
+                        case 5:
                             printf("| PEAK / TOP |\n");
                             // front(myQueue)!=EMPTY? printf("   > %d is FOUND\n", front(myQueue)) : printf("   > is NOT FOUND\n");
                             break;
-                        case 5:
+                        case 6:
                             printf("| DISPLAY |\n");
                             
                             break;
-                        case 6:
+                        case 7:
                             printf("| VISUALIZE |\n");
                             
                             break;

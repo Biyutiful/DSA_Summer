@@ -38,7 +38,9 @@ typedef struct{
 } Queue;
 
 /*VirtualHeap*/
-    
+
+// Product 
+    Product newProduct(int prodID, String prodName, int prodQty, double prodPrice, Date prodExp);
 // "Initialize" - Create virtual space
     VirtualSpace newVirtualSpace(); 
 // "isFull" - Checks if virtual space is full
@@ -60,8 +62,8 @@ typedef struct{
     // "Push" - Removes the top of the stack
     void push(VirtualSpace *vh, StackList *s, Product p);
     // "Pop" - Adds+ to the top
-    void popV(VirtualSpace *vh, StackList *s);
-    Product pop(VirtualSpace *vh, StackList *s);
+    void pop(VirtualSpace *vh, StackList *s);
+    Product popR(VirtualSpace *vh, StackList *s);
     // "isEmpty" -Check if it's equal to -1
     bool isEmptyStack(StackList s);
     // "Peak/Top" - Returns what's at the top of the stack

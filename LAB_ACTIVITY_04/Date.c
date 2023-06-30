@@ -178,17 +178,15 @@
     // "Display" - Displays the Stack
     void displayStack(VirtualSpace vh, StackList s) {
         int i;
-        printf("\n | DISPLAY | \n");
+        printf("\n%5s | %20s | %5s | %7s | %s\n", "ID", "NAME", "QTY", "PRICE", "EXP");
         printf("---------------------------------------------\n");
         for(i = s; i > -1; i = vh.data[i].link){
                 
-            printf("%5s | %d\n", "ID", vh.data[i].items.prodID);
-            printf("%5s | %s\n", "NAME", vh.data[i].items.prodName);
-            printf("%5s | %d\n", "QTY", vh.data[i].items.prodQty);
-            printf("%5s | %.2f\n", "PRICE", vh.data[i].items.prodPrice);
-            printf("%5s | %d\n", "EXP", vh.data[i].items.prodExp);
-            
-            printf("\n");
+            printf("%5d | ", vh.data[i].items.prodID);
+            printf("%20s | ", vh.data[i].items.prodName);
+            printf("%5d | ", vh.data[i].items.prodQty);
+            printf("%5.2f | ", vh.data[i].items.prodPrice);
+            printf("%d\n", vh.data[i].items.prodExp);
         }
         
         printf("---------------------------------------------\n");
