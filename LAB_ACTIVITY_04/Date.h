@@ -51,9 +51,10 @@ typedef struct{
     void deallocSpace(VirtualSpace *vh, int index);
 // "Viszualize" - Shows how it is being stored
     void visualizeSpace(VirtualSpace vh);
-// "Insert" - Inserts the data in the cursorbase(Virtual Space)
-    void insertFront(VirtualSpace *vh, Product p);
-    void insertRear(VirtualSpace *vh, Product p);
+//  "Display Product"
+    void displayProduct(Product p);
+// "Remove" - Removes and returns the data in the front of the cursorbase(Virtual Space)
+    int removeData(VirtualSpace *vh, int index);
     
 /*StackList*/
     // "Initialize" - initializes the count

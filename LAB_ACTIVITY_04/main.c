@@ -7,9 +7,10 @@ space for both the 2 data structures and algorithms introduced (Stack & Queues)
 *******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "Date.h"
-// #include "Date.c"
+#include "Date.c"
 
 /******************************************************************************
 
@@ -28,7 +29,7 @@ int main()
                             
     String menuStack[7]  = {"Initialize",
                             "Push","Pop",
-                            "isEmpty","Peak/Top"
+                            "isEmpty","Peak/Top",
                             "Display","Viszualize"};
                             
     String menuQueue[7]  = {"Initialize",
@@ -52,16 +53,17 @@ int main()
                 do {
                     system("cls");
                     printf("STACK MENU\n");
-                    for(i = 0; i < 6; ++i){
+                    for(i = 0; i < 7; ++i){
                         printf("[%d] %s\n", i+1, menuStack[i]);
                     }
-                    printf("Enter your choice <0 to EXIT>: ");
+                    printf("Enter your choice <0 to RETURN>: ");
                     scanf("%d", &choice);
                     
                     switch(choice) {
                         case 1:
                             printf("| INITIALIZE |\n");
                             StackList s =  initStackR();
+                            printf("STACK INITIALIZED \n");
                             break;
                         case 2:
                             printf("| PUSH |\n");
@@ -69,38 +71,42 @@ int main()
                             printf("Product ID: ");
                             scanf("%d", &p.prodID);
                             printf("Product Name: ");
-                            fgets(p.prodName, sizeof(p.prodName), stdin);
+                            scanf("%s", &p.prodName);
                             printf("Product Qty: ");
                             scanf("%d", &p.prodQty);
                             printf("Product Price: ");
-                            scanf("%f", &p.prodPrice);
+                            scanf("%lf", &p.prodPrice);
                             printf("Product Exp(DD MM YY): ");
                             scanf("%d %d %d", &p.prodExp.date, &p.prodExp.month, &p.prodExp.year);
+
                             push(&vh, &s, newProduct(p.prodID, p.prodName, p.prodQty, p.prodPrice, p.prodExp));
+                            visualStack(vh,s);
                             break;
                         case 3:
                             printf("| POP |\n");
-                            pop(&vh, &s);
+                            // pop(&vh, &s);
+                            displayProduct(popR(&vh, &s));
                             break;
                         case 4:
                             printf("| ISEMPTY |\n");
-                            // isEmpty(myQueue)? printf("   > is EMPTY\n") : printf("   > is NOT EMPTY\n");
+                            isEmptyStack(s)? printf("   > is EMPTY\n") : printf("   > is NOT EMPTY\n");
+                            visualStack(vh,s);
                             break;
                         case 5:
                             printf("| PEAK / TOP |\n");
-                            // front(myQueue)!=EMPTY? printf("   > %d is FOUND\n", front(myQueue)) : printf("   > is NOT FOUND\n");
+                            displayProduct(top(vh, s));
                             break;
                         case 6:
                             printf("| DISPLAY |\n");
-                            
+                            displayStack(vh, s);
                             break;
                         case 7:
                             printf("| VISUALIZE |\n");
-                            
+                            visualStack(vh, s);
                             break;
                         case 0:
-                            printf("Thank you\n");
-                            break;
+                            printf("Returning\n");
+                            continue;
                         default:
                             printf("Invalid Choice...\n");
                             break;
@@ -109,56 +115,70 @@ int main()
                 } while (choice != 0);
                 break;
             case 2:
-                // do {
-                //     system("cls");
-                //     printf("QUEUE MENU\n");
-                //     for(i = 0; i < 6; ++i){
-                //         printf("[%d] %s\n", i+1, menuQueue[i]);
-                //     }
-                //     printf("Enter your choice <0 to EXIT>: ");
-                //     scanf("%d", &choice);
-                //     switch(choice) {
-                //         case 1:
-                //             printf("| ENQUEUE |\n");
-                //             printf("Enter a number: ");
-                //             scanf("%d", &value);
-                //             enqueue(&myQueue, value);
-                //             visualize(myQueue);
-                //             break;
-                //         case 2:
-                //             printf("| DEQUEUE |\n");
-                //             dequeue(&myQueue);
-                //             visualize(myQueue);
-                //             break;
-                //         case 3:
-                //             printf("| ISEMPTY |\n");
-                //             isEmpty(myQueue)? printf("   > is EMPTY\n") : printf("   > is NOT EMPTY\n");
-                //             break;
-                //         case 4:
-                //             printf("| FRONT |\n");
-                //             front(myQueue)!=EMPTY? printf("   > %d is FOUND\n", front(myQueue)) : printf("   > is NOT FOUND\n");
-                //             break;
-                //         case 5:
-                //             printf("| DISPLAY |\n");
-                //             display(myQueue);
-                //             break;
-                //         case 6:
-                //             printf("| VISUALIZE |\n");
-                //             visualize(myQueue);
-                //             break;
-                //         case 0:
-                //             printf("Thank you\n");
-                //             break;
-                //         default:
-                //             printf("Invalid Choice...\n");
-                //             break;
-                //     }
-                //     system("pause");
-                // } while (choice != 0);
+                do {
+                    system("cls");
+                    printf("QUEUE MENU\n");
+                    for(i = 0; i < 7; ++i){
+                        printf("[%d] %s\n", i+1, menuQueue[i]);
+                    }
+                    printf("Enter your choice <0 to RETURN>: ");
+                    scanf("%d", &choice);
+                    switch(choice) {
+                        case 1:
+                            printf("| INITIALIZE |\n");
+                            Queue q = initQueueR();
+                            printf("QUEUE INITIALIZED \n");
+                            break;
+                        case 2:
+                            printf("| ENQUEUE |\n");
+                            printf("Enter a product(enter after every prompt): ");
+                            printf("Product ID: ");
+                            scanf("%d", &p.prodID);
+                            printf("Product Name: ");
+                            scanf("%s", &p.prodName);
+                            printf("Product Qty: ");
+                            scanf("%d", &p.prodQty);
+                            printf("Product Price: ");
+                            scanf("%lf", &p.prodPrice);
+                            printf("Product Exp(DD MM YY): ");
+                            scanf("%d %d %d", &p.prodExp.date, &p.prodExp.month, &p.prodExp.year);
+
+                            enqueue(&vh, &q, p);
+                            visualQueue(vh, q);
+                            break;
+                        case 3:
+                            printf("| DEQUEUE |\n");
+                            displayProduct(dequeueR(&vh, &q));
+                            break;
+                        case 4:
+                            printf("| ISEMPTY |\n");
+                            isEmptyQueue(q)? printf("   > is EMPTY\n") : printf("   > is NOT EMPTY\n");
+                            break;
+                        case 5:
+                            printf("| FRONT |\n");
+                            displayProduct(front(vh, q));
+                            break;
+                        case 6:
+                            printf("| DISPLAY |\n");
+                            displayQueue(vh, q);
+                            break;
+                        case 7:
+                            printf("| VISUALIZE |\n");
+                            visualQueue(vh, q);
+                            break;
+                        case 0:
+                            printf("Returning\n");
+                            continue;
+                        default:
+                            printf("Invalid Choice...\n");
+                            break;
+                    }
+                    system("pause");
+                } while (choice != 0);
                 break;
             case 3:
                 printf("| ISFULL |\n");
-                isFull(vh)? printf("   > is EMPTY\n") : printf("   > is NOT EMPTY\n");
+                isFull(vh)? printf("   > is FULL\n") : printf("   > is NOT FULL\n");
                 break;
             case 4:
                 printf("| VISUALIZE |\n");
