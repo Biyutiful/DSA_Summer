@@ -1,0 +1,1 @@
+nt temp = vs->data[i].link;
