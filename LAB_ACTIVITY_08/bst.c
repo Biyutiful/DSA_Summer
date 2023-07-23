@@ -10,12 +10,13 @@ BST *addElement(BST *list, Product item) {
     BSTPtr *trav = &list;
     
     if(*trav != NULL) {
+        
         if(item.prodID > (*trav)->data.prodID) {
             (*trav)->right = addElement((*trav)->right, item);
         } else if(item.prodID < (*trav)->data.prodID) {
             (*trav)->left = addElement((*trav)->left, item);
         }
-    } else {
+    } else{
         BSTPtr newNode = malloc(sizeof(BST));
         
         if(newNode != NULL){
@@ -78,6 +79,7 @@ void removeElement(BST *list, int prodID) {
         }
     }
 }
+
 //using recursive method
 BST *deleteElement(BST *list, int prodID) {
     BSTPtr *trav, *node, pred, temp;
@@ -100,14 +102,8 @@ BST *deleteElement(BST *list, int prodID) {
                 temp = NULL;
             } else {
                 pred = min((*trav)->right);
-                node = &pred;
-                (*trav) -> data = (*node) -> data;
-                if((*node) -> right != NULL){
-                    (*node) = (*node) -> right;
-                }
-
-                free(*node);
-                *node = NULL;
+                ((*trav)->data) = pred->data;
+                (*trav)->right = deleteElement((*trav)->right, pred->data.prodID);
             }
         }
     }
@@ -163,24 +159,21 @@ Product createProduct(int id, char *name, int qty, float price) {
 void displayProduct(Product prod) {
     printf("\n%5d | %10s", prod.prodID, prod.prodName);
 }
+
 BST *max(BST *list) {
-    return (list->right != NULL) ? max(list->right): list;
+    if (list == NULL) return NULL;
+    if (list->right == NULL) return list;
+    return max(list->right);
 }
+
 BST *min(BST *list) {
-    return (list->left != NULL) ? min(list->left): list;
+    if (list == NULL) return NULL;
+    if (list->left == NULL) return list;
+    return min(list->left);
 }
+
 bool isMember(BST *list, int prodID) {
-    bool check = 0;
-    if(isEmpty(list)){
-        if(prodID == list->data.prodID){
-            check = 1;
-        }
-        if(prodID > list->data.prodID){
-            isMember(list->right, prodID);
-        }
-        if(prodID < list->data.prodID){
-            isMember(list->left, prodID);
-        }
-    }
-    return check;
+    if (list == NULL) return 0;
+    if (list->data.prodID == prodID) return 1;
+    return isMember(list->data.prodID > prodID ? list->left : list->right, prodID);
 }

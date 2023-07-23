@@ -4,7 +4,7 @@
 typedef char String[30];
 
 typedef struct {
-    String LName, FName, MName;
+    String FName, LName, MName;
 } Name;
 
 typedef struct {
@@ -23,7 +23,7 @@ typedef struct {
 typedef struct node{
     Student s;
     struct node *link;
-} SType;
+} *SType;
 
 typedef struct{
     SType *studList;
@@ -31,13 +31,13 @@ typedef struct{
     int max;
 } Dictionary;
 
-Student newStudent(String studID, String FName, String MName, String LName, char sex, MyDate birthday, String program, int year);
+Student newStudent(String studID, Name studName, char sex, MyDate birthday, String program, int year);
 Dictionary newDictionary();
 void initDict(Dictionary *d, int size);
 void insertSorted(Dictionary *d, Student s);
-Student deleteStud(Dictionary *d);
-Student accessStud(Dictionary *d);
+Student deleteStud(Dictionary *d, String id);
+Student accessStud(Dictionary *d, String id);
 void visualizeDict(Dictionary d);
 void displayStudlist(Dictionary d);
-int hash(Dictionary *d);
+
 #endif
